@@ -1,5 +1,3 @@
-package softwareEngineering;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -85,10 +83,102 @@ public class databaseHandler {
         }
     }
 
+    private List<String> getLines(String fileName) {
+        File file = new File(fileName);
+        List<String> lines = new ArrayList<String>();
+        // get all lines from the file
+        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+            if (!file.exists()) {
+                return null;
+            }
+            String line;
+            while ((line = br.readLine()) != null) {
+                lines.add(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return lines;
+    }
+
+    public void deleteLineInAssignmentFile(String content, String fileName) {
+        List<String> lines = this.getLines(fileName);
+
+        // loop through the list to find the line
+        for (String line : lines) {
+            if (line.equals(content)) {
+                lines.remove(line);
+                break;
+            }
+        }
+        
+        // write new text
+        File file = new File(fileName);
+        String text = String.join("\n", lines);
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(file))) {
+            bw.write(text);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void addAssignment(String fileName, Teacher teacher, Course course) {
+        String line = this.formatAssignment(teacher, course);
+        this.writeToAssignmentFile(line, fileName);
+    }
+
+    public List<Map<Teacher, Course>> getAllAssignments(String filePath) {
+        List<Map<Teacher, Course>> result = new ArrayList<Map<Teacher, Course>>();
+        List<String> lines = this.getLines(filePath);
+        if (lines == null) {
+            return result;
+        }
+        for (String line : lines) {
+            String[] parts = line.replaceAll("[{}]", "").split("; ");
+            int teacherID = Integer.parseInt(parts[0].split(": ")[1]);
+            int courseID = Integer.parseInt(parts[1].split(": ")[1]);
+            
+            // create teacher and course
+            Teacher teacher = this.findTeacherFromID(teacherID);
+            Course course = this.findCourseFromID(courseID);
+            Map<Teacher, Course> map = new HashMap<Teacher, Course>();
+            map.put(teacher, course);
+            result.add(map);
+        }
+        return result;
+    }
+
+    public void deleteAssignment(String fileName, Teacher teacher, Course course) {
+        String line = this.formatAssignment(teacher, course);
+        this.deleteLineInAssignmentFile(line, fileName);
+    }
+
+    private String formatAssignment(Teacher teacher, Course course) {
+        return String.format("{teacherID: %d; courseID: %d}", teacher.getTeacherID(), course.getCourseID());
+    }
+
+    public Teacher findTeacherFromID(int id) {
+        for (Teacher teacher : this.teachers) {
+            if (teacher.getTeacherID() == id) {
+                return teacher;
+            }
+        }
+        return null;
+    }
+
+    public Course findCourseFromID(int id) {
+        for (Course course : this.teachingRequirements) {
+            if (course.getCourseID() == id) {
+                return course;
+            }
+        }
+        return null;
+    }
+
     // Test method
-    public static void main(String[] args) {
-    	databaseHandler dbHandler = new databaseHandler("C:\\Users\\HP\\Desktop\\database\\database-teacher.txt", "C:\\Users\\HP\\Desktop\\database\\database-teachingRequirment.txt");
-        dbHandler.writeToAssignmentFile("New assignment data", "C:\\Users\\HP\\Desktop\\database\\database-assignment.txt");
+    /*public static void main(String[] args) {
+    	databaseHandler dbHandler = new databaseHandler("database-teacher.txt", "database-teachingRequirment.txt");
+        //dbHandler.writeToAssignmentFile("New assignment data", "database-assignment.txt");
         
         System.out.println("All Teachers:");
         List<Teacher> allTeachers = dbHandler.getAllTeachers();
@@ -102,5 +192,5 @@ public class databaseHandler {
         for (Course course : allCourses) {
             System.out.println(course.toString());
         }
-    }
+    }*/
 }
