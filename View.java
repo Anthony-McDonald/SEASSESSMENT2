@@ -1,7 +1,14 @@
+import softwareEngineering.Course;
+import softwareEngineering.databaseHandler;
+
 public class View {
     
     public void displayTeachingRequirements(){
-        System.out.println("Teaching Requirements: ")
+        databaseHandler dbHandler = new databaseHandler();
+        List<Course> courses = dbHandler.getAllTeachingRequirements();
+        for (Course course : courses) {
+            System.out.println("Course: " + course.getCourseName() + ", Requirements: " + course.getRequiredTeachers());
+        }
     }
 
     public void displaySuitableTeachers(){
@@ -9,6 +16,9 @@ public class View {
     }
 
     public void displayAllTeachers(){
-        System.out.println("List of all teachers: ");
+        List<Teacher> teachers = dbHandler.getAllTeachers();
+        for (Teacher teacher : teachers) {
+            System.out.println(teacher.getName());
+        }
     }
 }
