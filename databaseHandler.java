@@ -96,7 +96,7 @@ public class databaseHandler {
                 lines.add(line);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            return null;
         }
         return lines;
     }
