@@ -98,7 +98,7 @@ public class DatabaseHandler {
                 lines.add(line);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            return null;
         }
         return lines;
     }
@@ -178,9 +178,9 @@ public class DatabaseHandler {
     }
 
     // Test method
-    public static void main(String[] args) {
-    	DatabaseHandler dbHandler = new DatabaseHandler("C:\\Users\\HP\\Desktop\\database\\database-teacher.txt", "C:\\Users\\HP\\Desktop\\database\\database-teachingRequirment.txt");
-        dbHandler.writeToAssignmentFile("New assignment data", "C:\\Users\\HP\\Desktop\\database\\database-assignment.txt");
+    /*public static void main(String[] args) {
+    	databaseHandler dbHandler = new databaseHandler("database-teacher.txt", "database-teachingRequirment.txt");
+        //dbHandler.writeToAssignmentFile("New assignment data", "database-assignment.txt");
         
         System.out.println("All Teachers:");
         List<Teacher> allTeachers = dbHandler.getAllTeachers();
@@ -194,5 +194,5 @@ public class DatabaseHandler {
         for (Course course : allCourses) {
             System.out.println(course.toString());
         }
-    }
+    }*/
 }
