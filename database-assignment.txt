@@ -1,3 +1,7 @@
-{teacherID: 2; courseID: 3}
-
-{teacherID: 50; courseID: 8}
+{teacherID: 32; courseID: 7}
+{teacherID: 41; courseID: 7}
+{teacherID: 8; courseID: 1}
+{teacherID: 18; courseID: 1}
+{teacherID: 34; courseID: 1}
+{teacherID: 40; courseID: 1}
+{teacherID: 50; courseID: 1}
