@@ -37,7 +37,7 @@ public class Controller {
         System.out.println("See teaching requirements, type: 'show teaching requirements'");
         System.out.println("See suitable staff for a particular course, type: 'show suitable staff'");
         System.out.println("Assign a teacher to a course, type: 'assign a teacher'");
-        System.out.println("See all assigned teaching requirements, type: 'see teaching requirements'");
+        System.out.println("See all assigned teaching requirements, type: 'see assigned teaching requirements'");
         System.out.println("Edit existing teaching requirements, type: 'edit teaching requirements'");
         System.out.println("Stop the program completely, type: 'stop'" + "\n");
         System.out.println("If you want to see these options again, type: 'help");
@@ -69,7 +69,8 @@ public class Controller {
                 return 1;
             case "assignateacher":
                 return 1;
-            case "seeteachingrequirements":
+            case "seeassignedteachingrequirements":
+                showTeachingRequirementsSated();
                 return 1;
             case "editteachingrequirements":
                 return 1;
@@ -129,6 +130,14 @@ public class Controller {
             return;
         }
         showMessage(staffToReturn);
+    }
+
+    public void showTeachingRequirementsSated() {
+//        List<Course> teachingReqs = getDatabaseHandler().getAllTeachingRequirements();
+//        for (Course course : teachingReqs) {
+//            System.out.println(course.getCourseName() + " has " + course.getRequiredTeachers() + " required teachers");
+//            course.
+//        }
     }
 
     // Test method
