@@ -137,10 +137,12 @@ public class DatabaseHandler {
         }
         for (String line : lines) {
             String[] parts = line.replaceAll("[{}]", "").split("; ");
+            if (parts.length < 2) {
+                continue;
+            }
             int teacherID = Integer.parseInt(parts[0].split(": ")[1]);
             int courseID = Integer.parseInt(parts[1].split(": ")[1]);
 
-            // create teacher and course
             Teacher teacher = this.findTeacherFromID(teacherID);
             Course course = this.findCourseFromID(courseID);
             Map<Teacher, Course> map = new HashMap<Teacher, Course>();

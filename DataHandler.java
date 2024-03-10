@@ -1,3 +1,5 @@
+package softwareEngineering;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,11 +11,11 @@ import java.util.Map.Entry;
  */
 public class DataHandler {
     private Config config;
-    private databaseHandler dbHandler;
+    private DatabaseHandler dbHandler;
     
     public DataHandler(Config config) {
         this.config = config;
-        this.dbHandler = new databaseHandler(config.getTeachersFilePath(), config.getCoursesFilePath());
+        this.dbHandler = new DatabaseHandler(config.getTeachersFilePath(), config.getCoursesFilePath());
     }
 
     public List<Teacher> getAllTeachers() {

@@ -1,3 +1,5 @@
+package softwareEngineering;
+
 public class Config {
     private String teachersFilePath = "database-teacher.txt";
     private String courseFilePath = "database-teachingRequirment.txt";

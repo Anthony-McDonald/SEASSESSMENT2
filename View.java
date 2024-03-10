@@ -29,6 +29,10 @@ public class View {
         System.out.println(teacher.getTeacherName());
     }
 
+    public void displayText(String string) {
+        System.out.println(string);
+    }
+
 
 }
 
