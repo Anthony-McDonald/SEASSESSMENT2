@@ -1,0 +1,50 @@
+{teacherID: 1; teacherName: Lucy; course: Algebra, Trigonometry; availableCourse: 4}
+{teacherID: 2; teacherName: John; course: Linear Algebra; availableCourse: 5}
+{teacherID: 3; teacherName: Emily; course: Mathematical Logic, Number Theory; availableCourse: 3}
+{teacherID: 4; teacherName: David; course: Trigonometry, Mathematical Logic, Number Theory, Algebra; availableCourse: 7}
+{teacherID: 5; teacherName: Sarah; course: Statistics, Algebra, Calculus; availableCourse: 6}
+{teacherID: 6; teacherName: Michael; course: Number Theory, Calculus; availableCourse: 4}
+{teacherID: 7; teacherName: Emma; course: Algebra, Geometry; availableCourse: 5}
+{teacherID: 8; teacherName: James; course: Number Theory, Algebra; availableCourse: 3}
+{teacherID: 9; teacherName: Olivia; course: Number Theory, Mathematical Logic, Algebra, Geometry; availableCourse: 6}
+{teacherID: 10; teacherName: Ethan; course: Calculus, Algebra; availableCourse: 4}
+{teacherID: 11; teacherName: Sophia; course: Calculus, Number Theory, Discrete Mathematics; availableCourse: 5}
+{teacherID: 12; teacherName: Benjamin; course: Algebra, Number Theory, Discrete Mathematics, Mathematical Logic; availableCourse: 6}
+{teacherID: 13; teacherName: Olivia; course: Discrete Mathematics, Trigonometry; availableCourse: 3}
+{teacherID: 14; teacherName: William; course: Geometry, Number Theory, Discrete Mathematics; availableCourse: 7}
+{teacherID: 15; teacherName: Emma; course: Trigonometry, Linear Algebra; availableCourse: 4}
+{teacherID: 16; teacherName: Alexander; course: Calculus, Trigonometry, Algebra; availableCourse: 5}
+{teacherID: 17; teacherName: Mia; course: Differential Equations, Number Theory, Discrete Mathematics; availableCourse: 4}
+{teacherID: 18; teacherName: James; course: Number Theory, Algebra, Discrete Mathematics; availableCourse: 6}
+{teacherID: 19; teacherName: Charlotte; course: Discrete Mathematics; availableCourse: 3}
+{teacherID: 20; teacherName: Noah; course: Algebra, Geometry, Trigonometry; availableCourse: 4}
+{teacherID: 21; teacherName: Grace; course: Algebra, Trigonometry, Calculus; availableCourse: 6}
+{teacherID: 22; teacherName: Lucas; course: Calculus, Algebra, Geometry; availableCourse: 5}
+{teacherID: 23; teacherName: Lily; course: Calculus, Geometry, Algebra; availableCourse: 4}
+{teacherID: 24; teacherName: Ethan; course: Calculus, Algebra, Geometry; availableCourse: 7}
+{teacherID: 25; teacherName: Mia; course: Trigonometry, Algebra, Geometry; availableCourse: 4}
+{teacherID: 26; teacherName: Jack; course: Trigonometry, Algebra, Calculus, Mathematical Logic; availableCourse: 6}
+{teacherID: 27; teacherName: Ava; course: Calculus, Number Theory, Discrete Mathematics; availableCourse: 5}
+{teacherID: 28; teacherName: Oliver; course: Algebra, Geometry; availableCourse: 3}
+{teacherID: 29; teacherName: Emily; course: Trigonometry, Algebra, Calculus, Geometry; availableCourse: 4}
+{teacherID: 30; teacherName: Benjamin; course: Calculus, Trigonometry, Algebra, Geometry; availableCourse: 5}
+{teacherID: 31; teacherName: Benjamin; course: Calculus, Algebra, Discrete Mathematics; availableCourse: 5}
+{teacherID: 32; teacherName: Olivia; course: Calculus, Trigonometry; availableCourse: 4}
+{teacherID: 33; teacherName: Mia; course: Algebra, Discrete Mathematics, Trigonometry, Mathematical Logic; availableCourse: 6}
+{teacherID: 34; teacherName: James; course: Algebra, Discrete Mathematics; availableCourse: 4}
+{teacherID: 35; teacherName: Charlotte; course: Calculus, Number Theory, Trigonometry; availableCourse: 5}
+{teacherID: 36; teacherName: Noah; course: Number Theory, Mathematical Logic, Algebra; availableCourse: 6}
+{teacherID: 37; teacherName: Sophia; course: Algebra, Geometry, Discrete Mathematics; availableCourse: 4}
+{teacherID: 38; teacherName: Benjamin; course: Trigonometry, Algebra, Discrete Mathematics, Mathematical Logic; availableCourse: 6}
+{teacherID: 39; teacherName: Mia; course: Calculus, Algebra, Trigonometry; availableCourse: 5}
+{teacherID: 40; teacherName: James; course: Algebra, Trigonometry, Calculus; availableCourse: 4}
+{teacherID: 41; teacherName: Olivia; course: Calculus, Algebra, Trigonometry; availableCourse: 6}
+{teacherID: 42; teacherName: Liam; course: Trigonometry, Algebra, Calculus; availableCourse: 5}
+{teacherID: 43; teacherName: Ava; course: Algebra, Geometry; availableCourse: 4}
+{teacherID: 44; teacherName: Ethan; course: Number Theory, Discrete Mathematics, Mathematical Logic, Algebra; availableCourse: 7}
+{teacherID: 45; teacherName: Emma; course: Algebra, Discrete Mathematics; availableCourse: 5}
+{teacherID: 46; teacherName: Noah; course: Algebra, Geometry; availableCourse: 4}
+{teacherID: 47; teacherName: Sophia; course: Calculus; availableCourse: 3}
+{teacherID: 48; teacherName: Benjamin; course: Mathematical Logic, Algebra, Discrete Mathematics, Number Theory; availableCourse: 6}
+{teacherID: 49; teacherName: Mia; course: Calculus, Discrete Mathematics, Algebra, Number Theory; availableCourse: 4}
+{teacherID: 50; teacherName: James; course: Algebra, Geometry, Trigonometry; availableCourse: 5}

@@ -1,0 +1,10 @@
+{courseID: 1; courseName: Algebra; requiredTeachers: 6}
+{courseID: 2; courseName: Trigonometry; requiredTeachers: 4}
+{courseID: 3; courseName: Linear Algebra; requiredTeachers: 5}
+{courseID: 4; courseName: Mathematical Logic; requiredTeachers: 3}
+{courseID: 5; courseName: Number Theory; requiredTeachers: 3}
+{courseID: 6; courseName: Statistics; requiredTeachers: 6}
+{courseID: 7; courseName: Calculus; requiredTeachers: 4}
+{courseID: 8; courseName: Geometry; requiredTeachers: 4}
+{courseID: 9; courseName: Discrete Mathematics; requiredTeachers: 5}
+{courseID: 10; courseName: Differential Equations; requiredTeachers: 4}
