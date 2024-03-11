@@ -174,6 +174,20 @@ public class Controller {
         }
     }
 
+    public void assignTeacher(Teacher teacher, Course courseInput) {
+
+
+        int isSuccess = -1;
+
+            int teacherMaxCourseNumber = teacher.getAvailableCourse();
+            int teacherCurrentCourseNumber = getDataHandler().getTeacherAssignedCourses(teacher).size();
+            if (teacherCurrentCourseNumber < teacherMaxCourseNumber) {
+                isSuccess = getDataHandler().assignTeacher(teacher, courseInput);
+                System.out.println("The assignment is " + (isSuccess == 0 ? "successful" : "unsuccessful"));
+            }
+
+    }
+
     public void showTeachingRequirementsSated() {
         for (Map<Teacher, Course> map : getDataHandler().getAllAssignments()) {
             List<Map.Entry<Teacher, Course>> mapList = new ArrayList<Map.Entry<Teacher, Course>>(map.entrySet());
@@ -210,6 +224,13 @@ public class Controller {
                     }
                     System.out.println("Do you wish to add a course, or remove a course from this list?");
                     String addOrRemove = getScanner().nextLine().toLowerCase().replace(" ", "");
+                    if (!addOrRemove.equals("add")) {
+                        if (!addOrRemove.equals("remove")) {
+                            System.out.println("You didn't choose to 'add' or 'remove', restarting the edit teaching requirements process");
+                            editTeachingRequirements();
+                            return;
+                        }
+                    }
                     System.out.println("Which course?");
                     String courseToAlter = getScanner().nextLine().toLowerCase().replace(" ", "");
                     boolean courseValid = false;
@@ -223,7 +244,8 @@ public class Controller {
                     if (courseValid) {
                         if (addOrRemove.equals("add")) {
                             System.out.println("Assigning teacher...");
-                            getDataHandler().assignTeacher(teacherToChange, courseToChange);
+                            System.out.println(teacherToChange.getTeacherName() + " to " + courseToChange.getCourseName());
+                            assignTeacher(teacherToChange, courseToChange);
                             return;
                         } else if (addOrRemove.equals("remove")) {
                             System.out.println("Unassigning teacher...");
