@@ -29,35 +29,23 @@ public class Controller {
         return scanner;
     }
 
-    private void showProgramCommands() {
-        System.out.println("\n" + "Welcome admin! We have a list of things you could do today");
-        System.out.println("Please note that none of these commands are case or space sensitive, if you wish to:");
-        System.out.println("See teaching requirements, type: 'show teaching requirements'");
-        System.out.println("See suitable staff for a particular course, type: 'show suitable staff'");
-        System.out.println("Assign a teacher to a course, type: 'assign a teacher'");
-        System.out.println("See all assigned teaching requirements, type: 'see assigned teaching requirements'");
-        System.out.println("Edit existing teaching requirements, type: 'edit teaching requirements'");
-        System.out.println("Stop the program completely, type: 'stop'" + "\n");
-        System.out.println("If you want to see these options again, type: 'help");
-    }
-
     public void startProgram() {
-        System.out.println("Program has started, beep beep boop. TEACHERINATOR 9000 IS ON THE CASE");
-        showProgramCommands();
+        view.displayText("Program has started, beep beep boop. TEACHERINATOR 9000 IS ON THE CASE");
+        view.showProgramCommands();
         // Keeps going until it reads a 'stop command'
         while (parseInput() != 0) {
         }
     }
 
     public int parseInput() {
-        System.out.println("Enter your command:");
+        view.displayText("Enter your command:");
         String toParse = getScanner().nextLine().toLowerCase().replace(" ", "");
         switch (toParse) {
             case "stop":
-                System.out.println("Stopping the program...");
+                view.displayText("Stopping the program...");
                 return 0;
             case "help":
-                showProgramCommands();
+                view.showProgramCommands();
                 return 1;
             case "showteachingrequirements":
                 showMessage(getDataHandler().getAllTeachingRequirements());
@@ -75,7 +63,7 @@ public class Controller {
                 editTeachingRequirements();
                 return 1;
             default:
-                System.out.println("DEFAULT CALLED, BREAKING");
+                view.displayText("DEFAULT CALLED, BREAKING");
 
 
         }
@@ -99,7 +87,7 @@ public class Controller {
     }
 
     private void showSuitableStaff() {
-        System.out.println("Please specify the course or write 'stop' to break out of this loop");
+        view.displayText("Please specify the course or write 'stop' to break out of this loop");
         String course = getScanner().nextLine().toLowerCase().replace(" ", "");;
         if (course.equals("stop")) {
             return;
@@ -113,7 +101,7 @@ public class Controller {
             }
         }
         if (courseFound == null) {
-            System.out.println("That is not a valid course name");
+            view.displayText("That is not a valid course name");
             showSuitableStaff();
             return;
         }
@@ -137,7 +125,7 @@ public class Controller {
     }
 
     public void assignTeacher() {
-        System.out.println("Please specify the course or write 'stop' to break out of this loop");
+        view.displayText("Please specify the course or write 'stop' to break out of this loop");
         String course = getScanner().nextLine().toLowerCase().replace(" ", "");
         String courseCapitalised = course.substring(0, 1).toUpperCase() + course.substring(1);
 
@@ -153,14 +141,14 @@ public class Controller {
             }
         }
         if (!courseValid) {
-            System.out.println("Course name isn't in the list of courses, please try again");
+            view.displayText("Course name isn't in the list of courses, please try again");
             assignTeacher();
             return;
         }
 
-        System.out.println("Teachers who can teach " + courseCapitalised + " are as follows:");
+        view.displayText("Teachers who can teach " + courseCapitalised + " are as follows:");
         showSuitableStaff(course);
-        System.out.println("Which teacher would you like to assign to teach " + courseCapitalised + "?");
+        view.displayText("Which teacher would you like to assign to teach " + courseCapitalised + "?");
         String teacherName = getScanner().nextLine().toLowerCase().replace(" ", "");
 
         int isSuccess = -1;
@@ -172,6 +160,20 @@ public class Controller {
 //                System.out.println("The assignment is " + (isSuccess == 0 ? "successful" : "unsuccessful"));
             }
         }
+    }
+
+    public void assignTeacher(Teacher teacher, Course courseInput) {
+
+
+        int isSuccess = -1;
+
+            int teacherMaxCourseNumber = teacher.getAvailableCourse();
+            int teacherCurrentCourseNumber = getDataHandler().getTeacherAssignedCourses(teacher).size();
+            if (teacherCurrentCourseNumber < teacherMaxCourseNumber) {
+                isSuccess = getDataHandler().assignTeacher(teacher, courseInput);
+                view.displayText("The assignment is " + (isSuccess == 0 ? "successful" : "unsuccessful"));
+            }
+
     }
 
     public void showTeachingRequirementsSated() {
@@ -187,7 +189,7 @@ public class Controller {
     public void editTeachingRequirements() {
         Teacher teacherToChange = null;
         Course courseToChange = null;
-        System.out.println("Do you want to change the 'teacher' or 'course'? Type stop to break loop");
+        view.displayText("Do you want to change the 'teacher' or 'course'? Type stop to break loop");
         String input = getScanner().nextLine().toLowerCase().replace(" ", "");
 
         if (input.equals("stop")) {
@@ -196,42 +198,50 @@ public class Controller {
 
         if (input.equals("teacher")) {
             for (Teacher teacher : getDataHandler().getAllTeachers()) {
-                System.out.println(teacher.getTeacherName());
+                view.displayText(teacher.getTeacherName());
             }
-            System.out.println("What teacher do you want to change?");
+            view.displayText("What teacher do you want to change?");
             String teacherInput = getScanner().nextLine().toLowerCase().replace(" ", "");
             for (Teacher teacher : getDataHandler().getAllTeachers()) {
 //                System.out.println("Comparing " + teacher.getTeacherName().toLowerCase().replace(" ", "") + " to " + teacherInput);
                 if (teacher.getTeacherName().toLowerCase().replace(" ", "").equals(teacherInput)) {
                     teacherToChange = teacher;
-                    System.out.println("Teacher name is valid, here is this teacher's currently assigned course(s):");
+                    view.displayText("Teacher name is valid, here is this teacher's currently assigned course(s):");
                     for (Course course : getDataHandler().getTeacherAssignedCourses(teacher)) {
-                        System.out.println(course.getCourseName());
+                        view.displayText(course.getCourseName());
                     }
-                    System.out.println("Do you wish to add a course, or remove a course from this list?");
+                    view.displayText("Do you wish to add a course, or remove a course from this list?");
                     String addOrRemove = getScanner().nextLine().toLowerCase().replace(" ", "");
-                    System.out.println("Which course?");
+                    if (!addOrRemove.equals("add")) {
+                        if (!addOrRemove.equals("remove")) {
+                            view.displayText("You didn't choose to 'add' or 'remove', restarting the edit teaching requirements process");
+                            editTeachingRequirements();
+                            return;
+                        }
+                    }
+                    view.displayText("Which course?");
                     String courseToAlter = getScanner().nextLine().toLowerCase().replace(" ", "");
                     boolean courseValid = false;
                     for (Course course : getDataHandler().getAllTeachingRequirements()) {
                         if (course.getCourseName().toLowerCase().replace(" ", "").equals(courseToAlter)) {
                             courseToChange = course;
                             courseValid = true;
-                            System.out.println("course is valid");
+                            view.displayText("course is valid");
                         }
                     }
                     if (courseValid) {
                         if (addOrRemove.equals("add")) {
-                            System.out.println("Assigning teacher...");
-                            getDataHandler().assignTeacher(teacherToChange, courseToChange);
+                            view.displayText("Assigning teacher...");
+                            view.displayText(teacherToChange.getTeacherName() + " to " + courseToChange.getCourseName());
+                            assignTeacher(teacherToChange, courseToChange);
                             return;
                         } else if (addOrRemove.equals("remove")) {
-                            System.out.println("Unassigning teacher...");
+                            view.displayText("Unassigning teacher...");
                             getDataHandler().deleteAssignment(teacherToChange, courseToChange);
                             return;
                         }
                     } else {
-                        System.out.println("Course is not valid, restarting process");
+                        view.displayText("Course is not valid, restarting process");
                         editTeachingRequirements();
                         return;
                     }
@@ -240,16 +250,16 @@ public class Controller {
             }
 
             if (teacherToChange == null ) {
-                System.out.println("Teacher name is not valid, restarting process");
+                view.displayText("Teacher name is not valid, restarting process");
 
                 editTeachingRequirements();
                 return;
             }
         }
         if (input.equals("course")) {
-            System.out.println("What course do you want to change?");
+            view.displayText("What course do you want to change?");
             String courseInput = getScanner().nextLine().toLowerCase().replace(" ", "");
-            System.out.println("User inputted " + courseInput + " unsure what to do with this atm");
+            view.displayText("User inputted " + courseInput + " unsure what to do with this atm");
 
         }
     }
