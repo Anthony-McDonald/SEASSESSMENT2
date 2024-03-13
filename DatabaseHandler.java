@@ -74,12 +74,19 @@ public class DatabaseHandler {
 
     public void writeToAssignmentFile(String content, String fileName) {
         File file = new File(fileName);
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(file, true))) {
-            if (!file.exists()) {
+        if (!file.exists()) {
+            try {
                 file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-            bw.write(content);
-            bw.newLine();
+        }
+        List<String> lines = this.getLines(fileName);
+        lines.add(content);
+        String text = String.join("\n", lines);
+
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(file, false))) {
+            bw.write(text);
         } catch (IOException e) {
             e.printStackTrace();
         }
