@@ -95,6 +95,53 @@ public class DataHandler {
     }
 
     /**
+     * Find courses that have space left to fill
+     * @return a map of courses paired with a number of teachers needed
+     */
+    public Map<Course, Integer> getUnassignedCourse() {
+        Map<Course, Integer> courseStat = getCourseStat();
+        Map<Course, Integer> result = new HashMap<Course, Integer>();
+        for (Course course : courseStat.keySet()) {
+            if (courseStat.get(course) > 0) {
+                result.put(course, courseStat.get(course));
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Find all courses with number of teacher currently needed
+     * @return a map of courses paired with a number of teachers needed
+     */
+    private Map<Course, Integer> getCourseStat() {
+        Map<Course, Integer> result = new HashMap<Course, Integer>();
+        List<Course> allRequirements = this.dbHandler.getAllTeachingRequirements();
+
+        // Add all courses to result
+        for (Course c : allRequirements) {
+            result.put(c, c.getRequiredTeachers());
+        }
+
+        List<Map<Teacher, Course>> allAssignments = this.dbHandler.getAllAssignments(this.config.getAssignmentsFilePath());
+        for (Map<Teacher, Course> map : allAssignments) {
+            List<Entry<Teacher, Course>> mapList = new ArrayList<Entry<Teacher, Course>>(map.entrySet());
+            Teacher teacher = mapList.get(0).getKey();
+            Course course = mapList.get(0).getValue();
+            if (result.containsKey(course)) {
+                // If there is already the course in the result
+                Integer freeSpace = result.get(course);
+                freeSpace -= 1;
+                result.put(course, freeSpace);
+            } else {
+                // This is the case of corrupt database
+            }
+        }
+
+        return result;
+
+    }
+
+    /**
      * Find courses that are assigned to the given teacher
      * @param inputTeacher
      * @return a list of courses that this teacher will teach
@@ -108,6 +155,26 @@ public class DataHandler {
             Course course = mapList.get(0).getValue();
             if (teacher.equals(inputTeacher)) {
                 result.add(course);
+            }
+        }
+
+        return result;
+    }
+
+    /**
+     * Find teachers that are assigned to the given course
+     * @param inputCourse
+     * @return a list of teachers that will teach this course
+     */
+    public List<Teacher> getCourseAssignedTeacher(Course inputCourse) {
+        List<Teacher> result = new ArrayList<Teacher>();
+        List<Map<Teacher, Course>> allAssignments = this.dbHandler.getAllAssignments(this.config.getAssignmentsFilePath());
+        for (Map<Teacher, Course> map : allAssignments) {
+            List<Entry<Teacher, Course>> mapList = new ArrayList<Entry<Teacher, Course>>(map.entrySet());
+            Teacher teacher = mapList.get(0).getKey();
+            Course course = mapList.get(0).getValue();
+            if (course.equals(inputCourse)) {
+                result.add(teacher);
             }
         }
 
@@ -207,6 +274,25 @@ public class DataHandler {
             Teacher tt = mapList.get(0).getKey();
             Course cc = mapList.get(0).getValue();
             System.out.println(String.format("\t - %s, %s", tt.getTeacherName(), cc.getCourseName()));
+        }
+
+        // get courses that still have to be filled
+        System.out.println("Current courses to be filled:");
+        Map<Course, Integer> unassignedCourses = dHandler.getUnassignedCourse();
+        for (Course c : unassignedCourses.keySet()) {
+            String courseName = c.getCourseName();
+            Integer currentlyRequired = unassignedCourses.get(c);
+            Integer totalRequired = c.getRequiredTeachers();
+            System.out.println(String.format(
+                "\t - %s: now need %d teachers from total %d teachers required",
+                courseName, currentlyRequired, totalRequired));
+        }
+
+        // find current assignment for a course
+        System.out.println("Current teacher for " + course.getCourseName() + ":");
+        List<Teacher> teachers = dHandler.getCourseAssignedTeacher(course);
+        for (Teacher t : teachers) {
+            System.out.println(String.format("\t - %s", t.getTeacherName()));
         }
         
     }
